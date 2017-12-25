@@ -25,6 +25,18 @@ class ProductDao(client: JdbcClient) {
     }
   }
 
+  def deleteProduct(id: Long): Future[Unit] = {
+    Future {
+      client.db autoCommit { implicit session =>
+        sql"""DELETE FROM ${productsTable}
+             | WHERE ${idField} = ${id};
+           """.stripMargin
+          .update()
+          .apply()
+      }
+    }
+  }
+
   def getProduct(id: Long): Future[Option[Product]] = {
     Future {
       client.db readOnly { implicit session =>
