@@ -4,11 +4,38 @@ import db.client.JdbcClient
 import model.Product
 import scalikejdbc._
 
-class ProductDao(jdbcClient: JdbcClient) {
+import scala.concurrent.Future
 
-  def getProduct(id: Long): Product = {
+class ProductDao(client: JdbcClient) {
 
-    ???
+  import ProductDao._
+
+  def addProduct(product: Product): Future[Unit] = {
+    Future {
+      client.db autoCommit { implicit session =>
+        sql"""
+             |INSERT INTO ${productsTable} (${productFields})
+             |VALUES(${product.id},${product.name},${product.productType},${product.quantity},
+             |${product.quantityUnit},${product.price},${product.priceUnit},${product.angebot},${product.gesmeck},
+             |${product.media},${product.createdAt},${product.updatedAt})
+             |Limit 1;""".stripMargin
+          .update()
+          .apply()
+      }
+    }
+  }
+
+  def getProduct(id: Long): Future[Option[Product]] = {
+    Future {
+      client.db readOnly { implicit session =>
+        sql"""SELECT * FROM ${productsTable}
+             | WHERE ${idField} = ${id}
+             | Limit 1;""".stripMargin
+          .map(productMapper)
+          .single()
+          .apply()
+      }
+    }
   }
 
 
@@ -16,6 +43,8 @@ class ProductDao(jdbcClient: JdbcClient) {
 
 
 object ProductDao {
+
+  private val productsTable = sqls"products"
 
   private val idField = sqls"id"
   private val nameField = sqls"name"
@@ -30,6 +59,18 @@ object ProductDao {
   private val createdAtField = sqls"created_at"
   private val updatedAtField = sqls"updated_at"
 
+  private val productFields = sqls.csv(idField,
+    nameField,
+    productTypeField,
+    quantityField,
+    quantityUnitField,
+    priceField,
+    priceUnitField,
+    angebotField,
+    gesmeckField,
+    mediaField,
+    createdAtField,
+    updatedAtField)
 
   private val productMapper = (rs: WrappedResultSet) => Product(
     id = rs.long(idField),
