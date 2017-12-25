@@ -60,7 +60,7 @@ object ProductDao {
 
   private val idField = sqls"id"
   private val nameField = sqls"name"
-  private val productTypeField = sqls"product_type"
+  private val productTypeField = sqls"type"
   private val quantityField = sqls"quantity"
   private val quantityUnitField = sqls"quantity_unit"
   private val priceField = sqls"price"

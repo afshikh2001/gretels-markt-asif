@@ -13,3 +13,6 @@ case class Product(id: Long,
                    createdAt: Long,
                    updatedAt: Long
                   )
+object Product {
+
+}

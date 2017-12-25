@@ -9,11 +9,11 @@ class JdbcClient(server: JdbcServerConfig, database: String, username: String, p
   val name = s"${server.host}:${server.port}/$database"
 
   Class.forName("org.postgresql.Driver")
-  ConnectionPool.add(name = name,uri,username,password,ConnectionPoolSettings(
+  ConnectionPool.add(name, uri, username, password, ConnectionPoolSettings(
     initialSize = server.jdbcConnectionPoolSettings.intialSize,
     maxSize = server.jdbcConnectionPoolSettings.maxSize,
-    connectionTimeoutMillis =server.jdbcConnectionPoolSettings.connectionTimeOutMillis
+    connectionTimeoutMillis = server.jdbcConnectionPoolSettings.connectionTimeOutMillis
   ))
 
-  def db=NamedDB(name)
+  def db = NamedDB(name)
 }

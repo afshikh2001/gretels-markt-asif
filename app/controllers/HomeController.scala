@@ -8,6 +8,9 @@ import db.config.{JdbcConfig, JdbcConfigProvider}
 import play.api._
 import play.api.mvc._
 
+import scala.concurrent.Await
+import scala.concurrent.duration._
+
 /**
   * This controller creates an `Action` to handle HTTP requests to the
   * application's home page.
@@ -23,12 +26,14 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     * a path of `/`.
     */
   def index() = Action { implicit request: Request[AnyContent] =>
-    val config=JdbcConfigProvider.config
+    val timeout = 10 seconds
+    val config = JdbcConfigProvider.config
     println("CONFIG")
     println(config.toString)
     val client = JdbcClientFactory.createClient(config)
     val productDao = new ProductDao(client)
-    productDao.getProduct(1)
+    val product = Await.result(productDao.getProduct(1), timeout)
+
     Ok(views.html.index())
   }
 }

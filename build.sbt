@@ -14,6 +14,8 @@ libraryDependencies ++= Seq(
   "com.h2database"  %  "h2"                 % "1.4.+",
   "ch.qos.logback"  %  "logback-classic"    % "1.2.+"
 )
+libraryDependencies += "postgresql" % "postgresql" % "9.1-901.jdbc4"
+
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.asif.markt.controllers._"
