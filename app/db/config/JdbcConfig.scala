@@ -13,8 +13,8 @@ object JdbcConfig {
     JdbcConfig(
       master = JdbcServerConfig.parse(config.getConfig("master")),
       database = config.getString("database"),
-      username = config.getString("host"),
-      password = config.getString("host")
+      username = config.getString("username"),
+      password = config.getString("password")
     )
   }
 }

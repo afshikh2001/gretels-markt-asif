@@ -3,7 +3,7 @@ package dao
 import db.client.JdbcClient
 import model.Product
 import scalikejdbc._
-
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ProductDao(client: JdbcClient) {
