@@ -5,17 +5,17 @@ import com.typesafe.config.ConfigFactory
 object JdbcConfigProvider {
   val config: JdbcConfig = JdbcConfig.parse(ConfigFactory.parseString(
     s"""
-       |database=""
-       |username=""
-       |password=""
+       |database="gretelsmarkt"
+       |username="postgres"
+       |password="Asim123"
        |connection-pool{
        |  initial-size=4,
        |  max-size=8,
        |  connection-timeout=15000
        |}
        |master{
-       |  host=""
-       |  port=""
+       |  host="localhost"
+       |  port="5432"
        |}
      """.stripMargin
   ))
