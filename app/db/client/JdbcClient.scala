@@ -1,6 +1,6 @@
 package db.client
 
-import config.JdbcServerConfig
+import db.config.JdbcServerConfig
 import scalikejdbc._
 
 class JdbcClient(server: JdbcServerConfig, database: String, username: String, password: String) {

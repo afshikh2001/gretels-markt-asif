@@ -1,6 +1,6 @@
 package db.client
 
-import config.JdbcConfig
+import db.config.JdbcConfig
 
 object JdbcClientFactory {
   def createClient(config: JdbcConfig): JdbcClient = {

@@ -1,7 +1,7 @@
-package config
+package db.config
 
 import com.typesafe.config.{Config, ConfigFactory}
-import config.JdbcConnectionPoolSettings.default
+import db.config.JdbcConnectionPoolSettings.default
 
 case class JdbcConfig(master: JdbcServerConfig,
                       database: String,
