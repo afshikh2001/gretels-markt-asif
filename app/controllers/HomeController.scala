@@ -24,6 +24,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     */
   def index() = Action { implicit request: Request[AnyContent] =>
     val config=JdbcConfigProvider.config
+    println("CONFIG")
+    println(config.toString)
     val client = JdbcClientFactory.createClient(config)
     val productDao = new ProductDao(client)
     productDao.getProduct(1)
