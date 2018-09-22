@@ -32,8 +32,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     println(config.toString)
     val client = JdbcClientFactory.createClient(config)
     val productDao = new ProductDao(client)
-    val product = Await.result(productDao.getProduct(1), timeout)
+    val fProduct = productDao.getProduct(1)
+    // fProduct.map(product=>Ok(views.html.index(product.get)))
 
-    Ok(views.html.index())
+    val product = Await.result(fProduct, timeout)
+    Ok(views.html.index(product.get))
   }
 }
