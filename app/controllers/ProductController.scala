@@ -16,7 +16,7 @@ import scala.concurrent.duration._
   * application's home page.
   */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class ProductController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   /**
     * Create an Action to render an HTML page.
@@ -25,7 +25,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     * will be called when the application receives a `GET` request with
     * a path of `/`.
     */
-  def index() = Action { implicit request: Request[AnyContent] =>
+  def home() = Action { implicit request: Request[AnyContent] =>
     val timeout = 10 seconds
     val config = JdbcConfigProvider.config
     println("CONFIG")
@@ -33,9 +33,9 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     val client = JdbcClientFactory.createClient(config)
     val productDao = new ProductDao(client)
     val fProduct = productDao.getProduct(1)
-    // fProduct.map(product=>Ok(views.html.index(product.get)))
+    // fProduct.map(product=>Ok(views.html.home(product.get)))
 
     val product = Await.result(fProduct, timeout)
-    Ok(views.html.index(product.get))
+    Ok(views.html.home(product.get))
   }
 }
