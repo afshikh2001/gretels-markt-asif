@@ -21,7 +21,7 @@ class CustomerController @Inject()(cc: ControllerComponents) extends AbstractCon
   }
 
   def signup() = Action { implicit request =>
-    val customerData = customerRegistrationForm.bindFromRequest().get
+    val customerData = customerRegistrationForm.bindFromRequest.get
     println(customerData.toString)
     Ok(views.html.login(""))
   }
