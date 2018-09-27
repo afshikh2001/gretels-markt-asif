@@ -10,7 +10,7 @@ import request.CustomerRegistrationForm.customerRegistrationForm
 @Singleton
 class CustomerController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  def login() = Action { implicit request: Request[AnyContent] =>
+  def login() = Action { implicit request =>
     Ok(views.html.login(""))
   }
 
