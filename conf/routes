@@ -5,8 +5,11 @@
 
 # An example controller showing a sample home page
 GET         /                    controllers.ProductController.home
++ nocsrf
 GET         /login               controllers.UserController.login
++ nocsrf
 POST        /sigin               controllers.UserController.signin
++ nocsrf
 POST        /signup              controllers.UserController.signup
 
 # Map static resources from the /public folder to the /assets URL path
