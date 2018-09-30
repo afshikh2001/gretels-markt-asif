@@ -4,10 +4,11 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, ControllerComponents, Request}
 import request.UserLoginForm.userLoginForm
 import request.UserRegistrationForm.userRegistrationForm
+import services.UserService
 
 
 @Singleton
-class UserController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class UserController @Inject()(cc: ControllerComponents, userService: UserService) extends AbstractController(cc) {
 
   def login() = Action { implicit request =>
     Ok(views.html.login(""))
@@ -15,7 +16,7 @@ class UserController @Inject()(cc: ControllerComponents) extends AbstractControl
 
   def signin() = Action { implicit request =>
     val loginData = userLoginForm.bindFromRequest.get
-    println(loginData.toString)
+    userService.userSignin(email = loginData.email, password = loginData.password)
     Ok(views.html.login(""))
   }
 
