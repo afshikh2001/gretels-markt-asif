@@ -11,7 +11,7 @@ libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc"        % "3.1.+",
-  "com.h2database"  %  "h2"                 % "1.4.+",
+  //"com.h2database"  %  "h2"                 % "1.4.+",
   "ch.qos.logback"  %  "logback-classic"    % "1.2.+"
 )
 libraryDependencies += "postgresql" % "postgresql" % "9.1-901.jdbc4"

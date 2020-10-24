@@ -36,6 +36,6 @@ class ProductController @Inject()(cc: ControllerComponents) extends AbstractCont
     // fProduct.map(product=>Ok(views.html.home(product.get)))
 
     val product = Await.result(fProduct, timeout)
-    Ok(views.html.home(product.get))
+    Ok(product.get)
   }
 }

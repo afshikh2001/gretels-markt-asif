@@ -10,21 +10,35 @@ import services.UserService
 @Singleton
 class UserController @Inject()(cc: ControllerComponents, userService: UserService) extends AbstractController(cc) {
 
-  def login() = Action { implicit request =>
-    Ok(views.html.login(""))
-  }
 
   def signin() = Action { implicit request =>
     val loginData = userLoginForm.bindFromRequest.get
     userService.userSignin(email = loginData.email, password = loginData.password)
-    Ok(views.html.login(""))
+    Ok("")
   }
 
   def signup() = Action { implicit request =>
     val customerData = userRegistrationForm.bindFromRequest.get
     println(customerData.toString)
-    Ok(views.html.login(""))
+    Ok("")
   }
+
+  def create()= Action { implicit request =>
+    val customerData = userRegistrationForm.bindFromRequest.get
+    println(customerData.toString)
+    Ok("")
+  }
+
+  def updateUser()=Action{implicit request=>
+    Ok("")
+  }
+
+  def showUserDetails()=Action{implicit request=>
+    Ok("")
+  }
+
+
+
 
 
 }
