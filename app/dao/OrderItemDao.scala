@@ -1,12 +1,68 @@
 package dao
 
-import dao.OrderDao.{idField, itemsField}
 import db.client.JdbcClient
-import model.{Price, Quantity, Order, OrderItem}
+import model.{OrderItem, Price, Quantity}
 import scalikejdbc._
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class OrderItemDao {
+
+class OrderItemDao(client: JdbcClient)  {
+
+  import OrderItemDao._
+
+  def addOrderItem(orderItem: OrderItem): Future[Unit] = {
+    Future {
+      client.db autoCommit { implicit session =>
+        sql"""
+             |INSERT INTO $orderItemsTable ($orderItemFields)
+             |VALUES(${orderItem.id},${orderItem.name},${orderItem.itemQuantity.value},${orderItem.itemQuantity.unit},
+             |${orderItem.itemPrice.value},${orderItem.itemPrice.unit},${orderItem.productId},${orderItem.orderId},
+             |${orderItem.createdAt},${orderItem.updatedAt})
+             |;""".stripMargin
+          .update()
+          .apply()
+      }
+    }
+  }
+
+  def deleteOrderItem(id: Long): Future[Unit] = {
+    Future {
+      client.db autoCommit { implicit session =>
+        sql"""DELETE FROM $orderItemsTable
+             | WHERE $idField = $id;
+           """.stripMargin
+          .update()
+          .apply()
+      }
+    }
+  }
+
+  def getOrderItem(id: Long): Future[Option[OrderItem]] = {
+    Future {
+      client.db readOnly { implicit session =>
+        sql"""SELECT * FROM $orderItemsTable
+             | WHERE ${idField} = ${id}
+             | Limit 1;""".stripMargin
+          .map(orderItemMapper)
+          .single()
+          .apply()
+      }
+    }
+  }
+
+  def getOrderItems(id: Long, limit: Int = 20, offset: Int): Future[List[OrderItem]] = {
+    Future {
+      client.db readOnly { implicit session =>
+        sql"""SELECT * FROM $orderItemsTable
+             | Limit $limit OFFSET $offset;""".stripMargin
+          .map(orderItemMapper)
+          .collection
+          .apply()
+      }
+    }
+  }
 
 }
 
@@ -26,7 +82,7 @@ object OrderItemDao {
   private val createdAtField = sqls"created_at"
   private val updatedAtField = sqls"updated_at"
 
-  private val orderFields = sqls.csv(idField,
+  private val orderItemFields = sqls.csv(idField,
     nameField,
     quantityField,
     quantityUnitField,

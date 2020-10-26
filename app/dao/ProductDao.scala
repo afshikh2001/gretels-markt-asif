@@ -18,8 +18,8 @@ class ProductDao(client: JdbcClient) {
              |INSERT INTO ${productsTable} (${productFields})
              |VALUES(${product.id},${product.name},${product.productType},${product.quantity},
              |${product.quantityUnit},${product.price},${product.priceUnit},${product.angebot},${product.gesmeck},
-             |${product.media},${product.createdAt},${product.updatedAt})
-             |Limit 1;""".stripMargin
+             |${product.media},${product.createdAt},${product.updatedAt});
+             |""".stripMargin
           .update()
           .apply()
       }

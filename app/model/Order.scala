@@ -2,7 +2,7 @@ package model
 
 case class Order(id: Long,
                  items: Seq[OrderItem],
-                 price: Double,
+                 price: Price,
                  customerId: Long,
                  createdAt: Long,
                  updatedAt: Long
