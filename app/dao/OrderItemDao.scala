@@ -43,7 +43,7 @@ class OrderItemDao(client: JdbcClient)  {
     Future {
       client.db readOnly { implicit session =>
         sql"""SELECT * FROM $orderItemsTable
-             | WHERE ${idField} = ${id}
+             | WHERE $idField = ${id}
              | Limit 1;""".stripMargin
           .map(orderItemMapper)
           .single()
@@ -52,10 +52,11 @@ class OrderItemDao(client: JdbcClient)  {
     }
   }
 
-  def getOrderItems(id: Long, limit: Int = 20, offset: Int): Future[List[OrderItem]] = {
+  def getOrderItems(orderId: Long, limit: Int = 20, offset: Int): Future[List[OrderItem]] = {
     Future {
       client.db readOnly { implicit session =>
         sql"""SELECT * FROM $orderItemsTable
+             |WHERE $orderId=$orderId
              | Limit $limit OFFSET $offset;""".stripMargin
           .map(orderItemMapper)
           .collection

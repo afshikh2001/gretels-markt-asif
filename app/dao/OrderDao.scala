@@ -30,7 +30,7 @@ class OrderDao(client: JdbcClient) {
       Future {
         client.db autoCommit { implicit session =>
           sql"""DELETE FROM ${ordersTable}
-               | WHERE ${idField} = ${id};
+               | WHERE $idField = ${id};
            """.stripMargin
             .update()
             .apply()
@@ -42,7 +42,7 @@ class OrderDao(client: JdbcClient) {
       Future {
         client.db readOnly { implicit session =>
           sql"""SELECT * FROM ${ordersTable}
-               | WHERE ${idField} = ${id}
+               | WHERE $idField = ${id}
                | Limit 1;""".stripMargin
             .map(orderMapper)
             .single()

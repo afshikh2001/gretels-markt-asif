@@ -15,11 +15,11 @@ class UserDao(client: JdbcClient) {
     Future {
       client.db autoCommit { implicit session =>
         sql"""
-             |INSERT INTO ${usersTable} (${userFields})
+             |INSERT INTO $usersTable ($userFields)
              |VALUES(${user.id},${user.vorName},${user.nachName},${user.email},
              |${user.password},${user.plz},${user.straße},${user.ort},${user.country},
              |${user.additionalAddress},${user.updatedAt})
-             |Limit 1;""".stripMargin
+             |;""".stripMargin
           .update()
           .apply()
       }
@@ -29,8 +29,8 @@ class UserDao(client: JdbcClient) {
   def deleteUser(id: Long): Future[Unit] = {
     Future {
       client.db autoCommit { implicit session =>
-        sql"""DELETE FROM ${usersTable}
-             | WHERE ${idField} = ${id};
+        sql"""DELETE FROM $usersTable
+             | WHERE ${idField} = $id;
            """.stripMargin
           .update()
           .apply()
@@ -41,8 +41,8 @@ class UserDao(client: JdbcClient) {
   def getUser(id: Long): Future[Option[User]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM ${usersTable}
-             | WHERE ${idField} = ${id}
+        sql"""SELECT * FROM $usersTable
+             | WHERE ${idField} = $id
              | Limit 1;""".stripMargin
           .map(userMapper)
           .single()
@@ -54,7 +54,7 @@ class UserDao(client: JdbcClient) {
   def getUsers(limit: Int = 20, offset: Int): Future[List[User]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM ${usersTable}
+        sql"""SELECT * FROM $usersTable
              | Limit $limit OFFSET $offset;""".stripMargin
           .map(userMapper)
           .collection
