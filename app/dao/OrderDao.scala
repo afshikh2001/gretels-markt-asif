@@ -1,8 +1,7 @@
 package dao
 
-import dao.ProductDao.{productMapper, productsTable}
 import db.client.JdbcClient
-import model.{Order, Price, Product}
+import model.{Order, Price}
 import scalikejdbc._
 
 import scala.concurrent.Future
