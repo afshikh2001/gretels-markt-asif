@@ -1,7 +1,7 @@
 package dao
 
 import db.client.JdbcClient
-import model.{Product, User}
+import model.User
 import scalikejdbc._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -46,6 +46,18 @@ class UserDao(client: JdbcClient) {
              | Limit 1;""".stripMargin
           .map(userMapper)
           .single()
+          .apply()
+      }
+    }
+  }
+
+  def getUsers(limit: Int = 20, offset: Int): Future[List[User]] = {
+    Future {
+      client.db readOnly { implicit session =>
+        sql"""SELECT * FROM ${usersTable}
+             | Limit $limit OFFSET $offset;""".stripMargin
+          .map(userMapper)
+          .collection
           .apply()
       }
     }

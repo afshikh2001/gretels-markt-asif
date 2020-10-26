@@ -3,6 +3,7 @@ package dao
 import db.client.JdbcClient
 import model.Product
 import scalikejdbc._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -45,6 +46,18 @@ class ProductDao(client: JdbcClient) {
              | Limit 1;""".stripMargin
           .map(productMapper)
           .single()
+          .apply()
+      }
+    }
+  }
+
+  def getProducts(limit: Int = 20, offset: Int): Future[List[Product]] = {
+    Future {
+      client.db readOnly { implicit session =>
+        sql"""SELECT * FROM ${productsTable}
+             | Limit $limit OFFSET $offset;""".stripMargin
+          .map(productMapper)
+          .collection
           .apply()
       }
     }

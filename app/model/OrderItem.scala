@@ -2,10 +2,8 @@ package model
 
 case class OrderItem(id: Long,
                      name: String,
-                     quantity: Int,
-                     quantityUnit: String,
-                     price: Double,
-                     priceUnit: String,
+                     itemQuantity: Quantity,
+                     itemPrice: Price,
                      productId:Long,
                      orderId: Long,
                      createdAt: Long,
@@ -15,3 +13,10 @@ case class OrderItem(id: Long,
 object OrderItem {
 
 }
+
+
+
+case class Price(value:Double, unit:String)
+
+
+case class Quantity(value:Int, unit:String)
