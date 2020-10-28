@@ -5,7 +5,7 @@ import slick.jdbc.MySQLProfile.api._
 
 trait UserTable {
 
-  class UserTable(tag: Tag) extends Table[User](tag, "users") {
+  class UserTable(tag: Tag) extends Table[User](tag, "user") {
 
     def id = column[Long]("id")
 
@@ -13,7 +13,7 @@ trait UserTable {
 
     def lastName = column[String]("lastName")
 
-    def type_ = column[String]("type")
+    def type_ = column[String]("user_type")
 
     def email = column[String]("email")
 

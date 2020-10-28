@@ -10,8 +10,7 @@ class OrderService @Inject()(orderDao: OrderDao) {
 
   def createOrder(user: User, orderItems: List[OrderItem]): Future[Order] = {
 
-    Order order = new Order();
 
-
+    ???
   }
 }

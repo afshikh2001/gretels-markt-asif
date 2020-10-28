@@ -16,7 +16,7 @@ class OrderItemDao(client: JdbcClient)  {
     Future {
       client.db autoCommit { implicit session =>
         sql"""
-             |INSERT INTO $orderItemsTable ($orderItemFields)
+             |INSERT INTO $orderItemTable ($orderItemFields)
              |VALUES(${orderItem.id},${orderItem.name},${orderItem.itemQuantity.value},${orderItem.itemQuantity.unit},
              |${orderItem.itemPrice.value},${orderItem.itemPrice.unit},${orderItem.productId},${orderItem.orderId},
              |${orderItem.createdAt},${orderItem.updatedAt})
@@ -30,7 +30,7 @@ class OrderItemDao(client: JdbcClient)  {
   def deleteOrderItem(id: Long): Future[Unit] = {
     Future {
       client.db autoCommit { implicit session =>
-        sql"""DELETE FROM $orderItemsTable
+        sql"""DELETE FROM $orderItemTable
              | WHERE $idField = $id;
            """.stripMargin
           .update()
@@ -42,7 +42,7 @@ class OrderItemDao(client: JdbcClient)  {
   def getOrderItem(id: Long): Future[Option[OrderItem]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM $orderItemsTable
+        sql"""SELECT * FROM $orderItemTable
              | WHERE $idField = ${id}
              | Limit 1;""".stripMargin
           .map(orderItemMapper)
@@ -55,7 +55,7 @@ class OrderItemDao(client: JdbcClient)  {
   def getOrderItems(orderId: Long, limit: Int = 20, offset: Int): Future[List[OrderItem]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM $orderItemsTable
+        sql"""SELECT * FROM $orderItemTable
              |WHERE $orderId=$orderId
              | Limit $limit OFFSET $offset;""".stripMargin
           .map(orderItemMapper)
@@ -70,7 +70,7 @@ class OrderItemDao(client: JdbcClient)  {
 
 object OrderItemDao {
 
-  private val orderItemsTable = sqls"orderItems"
+  private val orderItemTable = sqls"order_item"
 
   private val idField = sqls"id"
   private val nameField = sqls"name"

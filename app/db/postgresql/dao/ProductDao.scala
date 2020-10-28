@@ -16,7 +16,7 @@ class ProductDao(client: JdbcClient) {
     Future {
       client.db autoCommit { implicit session =>
         sql"""
-             |INSERT INTO $productsTable ($productFields)
+             |INSERT INTO $productTable ($productFields)
              |VALUES(${product.id},${product.name},${product.productType},${product.quantity.value},
              |${product.quantity.unit},${product.price.value},${product.price.unit},${product.angebot},${product.gesmeck},
              |${product.media},${product.createdAt},${product.updatedAt});
@@ -30,7 +30,7 @@ class ProductDao(client: JdbcClient) {
   def deleteProduct(id: Long): Future[Unit] = {
     Future {
       client.db autoCommit { implicit session =>
-        sql"""DELETE FROM $productsTable
+        sql"""DELETE FROM $productTable
              | WHERE $idField = ${id};
            """.stripMargin
           .update()
@@ -42,7 +42,7 @@ class ProductDao(client: JdbcClient) {
   def getProduct(id: Long): Future[Option[Product]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM $productsTable
+        sql"""SELECT * FROM $productTable
              | WHERE $idField = $id
              | Limit 1;""".stripMargin
           .map(productMapper)
@@ -55,7 +55,7 @@ class ProductDao(client: JdbcClient) {
   def getProducts(limit: Int = 20, offset: Int): Future[List[Product]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM $productsTable
+        sql"""SELECT * FROM $productTable
              | Limit $limit OFFSET $offset;""".stripMargin
           .map(productMapper)
           .collection
@@ -70,7 +70,7 @@ class ProductDao(client: JdbcClient) {
 
 object ProductDao {
 
-  private val productsTable = sqls"products"
+  private val productTable = sqls"product"
 
   private val idField = sqls"id"
   private val nameField = sqls"name"

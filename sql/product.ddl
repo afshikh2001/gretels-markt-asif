@@ -1,6 +1,6 @@
-CREATE TABLE products
+CREATE TABLE product
 (
-  id            BIGSERIAL        NOT NULL CONSTRAINT  products_pkey  PRIMARY KEY,
+  id            BIGSERIAL        NOT NULL CONSTRAINT product_pkey  PRIMARY KEY,
   name          VARCHAR(128)     NOT NULL,
   type          VARCHAR(32)      NOT NULL,
   quantity      INTEGER          NOT NULL,
@@ -14,4 +14,4 @@ CREATE TABLE products
   updated_at    BIGSERIAL        NOT NULL
 );
 
-CREATE UNIQUE INDEX products_id_uindex ON products (id);
+CREATE UNIQUE INDEX product_id_uindex ON product(id);

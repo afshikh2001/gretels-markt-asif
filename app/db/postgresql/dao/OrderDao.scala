@@ -18,7 +18,7 @@ class OrderDao(client: JdbcClient) {
     Future {
       client.db autoCommit { implicit session =>
         sql"""
-             |INSERT INTO ${ordersTable} (${orderFields})
+             |INSERT INTO ${orderTable} (${orderFields})
              |VALUES(${order.id},${order.price},${order.customerId},
              |${order.createdAt},${order.updatedAt})
              |;""".stripMargin
@@ -31,7 +31,7 @@ class OrderDao(client: JdbcClient) {
   def deleteOrder(id: Long): Future[Unit] = {
     Future {
       client.db autoCommit { implicit session =>
-        sql"""DELETE FROM ${ordersTable}
+        sql"""DELETE FROM ${orderTable}
              | WHERE $idField = ${id};
            """.stripMargin
           .update()
@@ -53,7 +53,7 @@ class OrderDao(client: JdbcClient) {
   def getOrder(id: Long): Future[Option[Order]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM ${ordersTable}
+        sql"""SELECT * FROM ${orderTable}
              | WHERE $idField = ${id}
              | Limit 1;""".stripMargin
           .map(orderMapper)
@@ -66,7 +66,7 @@ class OrderDao(client: JdbcClient) {
   def getOrders(limit: Int = 20, offset: Int): Future[List[Order]] = {
     Future {
       client.db readOnly { implicit session =>
-        sql"""SELECT * FROM ${ordersTable}
+        sql"""SELECT * FROM ${orderTable}
              | Limit $limit OFFSET $offset;""".stripMargin
           .map(orderMapper)
           .collection
@@ -79,12 +79,12 @@ class OrderDao(client: JdbcClient) {
 
 object OrderDao {
 
-  private val ordersTable = sqls"orders"
+  private val orderTable = sqls"order"
 
   private val idField = sqls"id"
   private val priceField = sqls"price"
-  private val priceUnitField = sqls"priceUnit"
-  private val customerIdField = sqls"customerId"
+  private val priceUnitField = sqls"price_unit"
+  private val customerIdField = sqls"customer_id"
   private val createdAtField = sqls"created_at"
   private val updatedAtField = sqls"updated_at"
 

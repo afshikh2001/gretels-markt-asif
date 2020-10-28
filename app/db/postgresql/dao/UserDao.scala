@@ -74,7 +74,7 @@ object UserDao {
   private val idField = sqls"id"
   private val vorNameField = sqls"first_name"
   private val nachNameField = sqls"last_name"
-  private val typeField = sqls"type"
+  private val userTypeField = sqls"user_type"
   private val emailField = sqls"email"
   private val passwordField = sqls"password"
   private val plzField = sqls"plz"
@@ -89,7 +89,7 @@ object UserDao {
     idField,
     vorNameField,
     nachNameField,
-    typeField,
+    userTypeField,
     emailField,
     passwordField,
     plzField,
@@ -105,7 +105,7 @@ object UserDao {
     id = rs.long(idField),
     firstName = rs.string(vorNameField),
     lastName = rs.string(nachNameField),
-    type_ = rs.string(typeField),
+    type_ = rs.string(userTypeField),
     email = rs.string(emailField),
     password = rs.string(passwordField),
     plz = rs.int(plzField),
