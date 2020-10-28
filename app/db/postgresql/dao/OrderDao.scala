@@ -1,12 +1,15 @@
-package dao
+package db.postgresql.dao
 
-import db.client.JdbcClient
+import javax.inject._
+import db.postgresql.client.JdbcClient
 import model.{Order, Price}
 import scalikejdbc._
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
+
+@Singleton
 class OrderDao(client: JdbcClient) {
 
     import OrderDao._
@@ -37,6 +40,21 @@ class OrderDao(client: JdbcClient) {
       }
     }
 
+
+
+
+  /*
+
+  DB localTx { implicit session =>
+  // --- transcation scope start ---
+  sql"update emp set name = ${name1} where id = ${id1}".update.apply()
+  sql"update emp set name = ${name2} where id = ${id2}".update.apply()
+  // --- transaction scope end ---
+}
+
+
+
+   */
     def getOrder(id: Long): Future[Option[Order]] = {
       Future {
         client.db readOnly { implicit session =>
@@ -98,13 +116,5 @@ object OrderDao {
     value = rs.double(priceField),
     unit = rs.string(priceUnitField),
   )
-
-
-
-
-
-
-
-
 
 }

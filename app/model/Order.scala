@@ -9,5 +9,8 @@ case class Order(id: Long,
                 )
 
 object Order {
-
+  def apply(userId: Long, items: List[OrderItem]): Order = {
+    //new Order(id, items, price, customerId, createdAt, updatedAt)
+    ???
+  }
 }

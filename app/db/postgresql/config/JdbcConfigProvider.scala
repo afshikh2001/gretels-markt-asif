@@ -1,4 +1,4 @@
-package db.config
+package db.postgresql.config
 
 import com.typesafe.config.ConfigFactory
 

@@ -1,6 +1,6 @@
-package db.client
+package db.postgresql.client
 
-import db.config.JdbcConfig
+import db.postgresql.config.JdbcConfig
 
 object JdbcClientFactory {
   def createClient(config: JdbcConfig): JdbcClient = {

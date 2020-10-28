@@ -1,7 +1,7 @@
-package db.config
+package db.postgresql.config
 
 import com.typesafe.config.{Config, ConfigFactory}
-import db.config.JdbcConnectionPoolSettings.default
+import db.postgresql.config.JdbcConnectionPoolSettings.default
 
 case class JdbcConfig(master: JdbcServerConfig,
                       database: String,

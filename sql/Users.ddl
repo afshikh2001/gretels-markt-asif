@@ -1,8 +1,6 @@
 CREATE TABLE users
 (
-  id            BIGSERIAL        NOT NULL
-    CONSTRAINT users_pkey
-    PRIMARY KEY,
+  id                    BIGSERIAL        NOT NULL CONSTRAINT users_pkey PRIMARY KEY,
   vorName               VARCHAR(128)     NOT NULL,
   nachName              VARCHAR(128)     NOT NULL,
   email                 VARCHAR(128)     NOT NULL,
@@ -15,8 +13,6 @@ CREATE TABLE users
   updated_at            BIGSERIAL        NOT NULL
 );
 
-CREATE UNIQUE INDEX users_id_uindex
-  ON users (id);
+CREATE UNIQUE INDEX users_id_uindex ON users (id);
 
-CREATE UNIQUE INDEX users_id_uindex
-  ON users (email);
+CREATE UNIQUE INDEX users_id_uindex ON users (email);

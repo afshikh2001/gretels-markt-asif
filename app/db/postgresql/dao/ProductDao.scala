@@ -1,6 +1,6 @@
-package dao
+package db.postgresql.dao
 
-import db.client.JdbcClient
+import db.postgresql.client.JdbcClient
 import model.Product
 import scalikejdbc._
 
