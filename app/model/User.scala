@@ -1,8 +1,9 @@
 package model
 
 case class User(id: Long,
-                vorName: String,
-                nachName: String,
+                firstName: String,
+                lastName: String,
+                type_ : String,
                 email: String,
                 password: String,
                 plz: Int,
@@ -10,9 +11,8 @@ case class User(id: Long,
                 ort: String,
                 country: String,
                 additionalAddress: String,
+                createdAt: Long,
                 updatedAt: Long
-                   )
+               )
 
-object User {
 
-}

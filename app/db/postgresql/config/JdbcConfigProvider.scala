@@ -6,8 +6,8 @@ object JdbcConfigProvider {
   val config: JdbcConfig = JdbcConfig.parse(ConfigFactory.parseString(
     s"""
        |database="gretelsmarkt"
-       |username="postgres"
-       |password="Asim123"
+       |username="root"
+       |password="Changeit456!"
        |master{
        |  host="localhost"
        |  port="5432"

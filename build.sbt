@@ -10,12 +10,13 @@ scalaVersion := "2.12.3"
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 libraryDependencies ++= Seq(
-  //"org.scalikejdbc" %% "scalikejdbc"        % "3.1.+",
-  //"com.h2database"  %  "h2"                 % "1.4.+",
+  "org.scalikejdbc" %% "scalikejdbc"        % "3.1.+",
+  "com.h2database"  %  "h2"                 % "1.4.+",
   "ch.qos.logback"  %  "logback-classic"    % "1.2.+"
 )
 
 libraryDependencies ++= Seq(
+  "com.typesafe.slick" %%"slick-hikaricp"%"3.3.0",
   "com.typesafe.slick" %% "slick" % "3.0.0",
   "org.slf4j" % "slf4j-nop" % "1.6.4"
 )

@@ -1,7 +1,8 @@
 package db.postgresql.dao
 
 import db.postgresql.client.JdbcClient
-import model.Product
+import db.postgresql.dao.OrderItemDao.{priceField, priceMapper, priceUnitField, quantityMapper}
+import model.{Price, Product, Quantity}
 import scalikejdbc._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,8 +17,8 @@ class ProductDao(client: JdbcClient) {
       client.db autoCommit { implicit session =>
         sql"""
              |INSERT INTO $productsTable ($productFields)
-             |VALUES(${product.id},${product.name},${product.productType},${product.quantity},
-             |${product.quantityUnit},${product.price},${product.priceUnit},${product.angebot},${product.gesmeck},
+             |VALUES(${product.id},${product.name},${product.productType},${product.quantity.value},
+             |${product.quantity.unit},${product.price.value},${product.price.unit},${product.angebot},${product.gesmeck},
              |${product.media},${product.createdAt},${product.updatedAt});
              |""".stripMargin
           .update()
@@ -101,16 +102,25 @@ object ProductDao {
     id = rs.long(idField),
     name = rs.string(nameField),
     productType = rs.string(productTypeField),
-    quantity = rs.int(quantityField),
-    quantityUnit = rs.string(quantityUnitField),
-    price = rs.double(priceField),
-    priceUnit = rs.string(priceUnitField),
+    quantity = quantityMapper(rs),
+    price = priceMapper(rs),
     angebot = rs.booleanOpt(angebotField),
     gesmeck = rs.stringOpt(gesmeckField),
     media = rs.string(mediaField),
     createdAt = rs.long(createdAtField),
     updatedAt = rs.long(updatedAtField)
   )
+
+  private val quantityMapper = (rs: WrappedResultSet) => Quantity(
+    value = rs.int(priceField),
+    unit = rs.string(priceUnitField),
+  )
+
+  private val priceMapper = (rs: WrappedResultSet) => Price(
+    value = rs.double(priceField),
+    unit = rs.string(priceUnitField),
+  )
+
 
 
 }

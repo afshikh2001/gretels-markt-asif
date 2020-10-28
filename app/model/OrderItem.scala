@@ -11,13 +11,6 @@ case class OrderItem(id: Long,
                     )
 
 object OrderItem {
-  def apply(): Unit = {
-
-  }
 }
 
 
-case class Price(value: Double, unit: String)
-
-
-case class Quantity(value: Int, unit: String)

@@ -16,7 +16,7 @@ class UserDao(client: JdbcClient) {
       client.db autoCommit { implicit session =>
         sql"""
              |INSERT INTO $usersTable ($userFields)
-             |VALUES(${user.id},${user.vorName},${user.nachName},${user.email},
+             |VALUES(${user.id},${user.firstName},${user.lastName},${user.email},
              |${user.password},${user.plz},${user.straße},${user.ort},${user.country},
              |${user.additionalAddress},${user.updatedAt})
              |;""".stripMargin
@@ -72,21 +72,24 @@ object UserDao {
   private val usersTable = sqls"users"
 
   private val idField = sqls"id"
-  private val vorNameField = sqls"name"
-  private val nachNameField = sqls"type"
-  private val emailField = sqls"quantity"
-  private val passwordField = sqls"quantity_unit"
-  private val plzField = sqls"price"
-  private val straßeField = sqls"price_unit"
-  private val ortField = sqls"angebot"
-  private val countryField = sqls"gesmeck"
-  private val additionalAddressField = sqls"media"
+  private val vorNameField = sqls"first_name"
+  private val nachNameField = sqls"last_name"
+  private val typeField = sqls"type"
+  private val emailField = sqls"email"
+  private val passwordField = sqls"password"
+  private val plzField = sqls"plz"
+  private val straßeField = sqls"strasse"
+  private val ortField = sqls"ort"
+  private val countryField = sqls"country"
+  private val additionalAddressField = sqls"additional_address"
+  private val createdAtField = sqls"created_at"
   private val updatedAtField = sqls"updated_at"
 
   private val userFields = sqls.csv(
     idField,
     vorNameField,
     nachNameField,
+    typeField,
     emailField,
     passwordField,
     plzField,
@@ -94,13 +97,15 @@ object UserDao {
     ortField,
     countryField,
     additionalAddressField,
+    createdAtField,
     updatedAtField
   )
 
   private val userMapper = (rs: WrappedResultSet) => User(
     id = rs.long(idField),
-    vorName = rs.string(vorNameField),
-    nachName = rs.string(nachNameField),
+    firstName = rs.string(vorNameField),
+    lastName = rs.string(nachNameField),
+    type_ = rs.string(typeField),
     email = rs.string(emailField),
     password = rs.string(passwordField),
     plz = rs.int(plzField),
@@ -108,7 +113,8 @@ object UserDao {
     ort = rs.string(ortField),
     country = rs.string(countryField),
     additionalAddress = rs.string(additionalAddressField),
+    createdAt = rs.long(updatedAtField),
     updatedAt = rs.long(updatedAtField)
   )
-  
+
 }
