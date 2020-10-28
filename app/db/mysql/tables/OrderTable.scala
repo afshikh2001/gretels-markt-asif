@@ -10,8 +10,6 @@ trait OrderTable {
 
     def id = column[Long]("id")
 
-    def items = column[Seq[OrderItem]]("name")
-
     def price = column[Double]("price")
 
     def priceUnit = column[String]("price_unit")
@@ -24,15 +22,14 @@ trait OrderTable {
 
     def * : ProvenShape[Order] = (
       id,
-      items,
       (price, priceUnit),
       customerId,
       createdAt,
       updatedAt).shaped <> ( {
-      case (id, items, price, customerId, createdAt, updatedAt) =>
-        Order(id, items, Price.tupled.apply(price), customerId, createdAt, updatedAt)
+      case (id, price, customerId, createdAt, updatedAt) =>
+        Order(id, Price.tupled.apply(price), customerId, createdAt, updatedAt)
     }, { order: Order =>
-      Some(order.id, order.items, order.price, Price.unapply(order.price).get, order.customerId, order.createdAt, order.updatedAt)
+      Some(order.id, Price.unapply(order.price).get, order.customerId, order.createdAt, order.updatedAt)
     })
   }
 
