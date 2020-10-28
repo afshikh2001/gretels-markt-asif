@@ -2,6 +2,7 @@ package db.mysql.tables
 
 import model.{OrderItem, Price, Quantity}
 import slick.jdbc.MySQLProfile.api._
+import slick.lifted.ProvenShape
 
 trait OrderItemTable {
 
@@ -27,7 +28,7 @@ trait OrderItemTable {
 
     def updatedAt = column[Long]("updated_at")
 
-    def * = (
+    def * : ProvenShape[OrderItem] = (
       id,
       name,
       (quantity, quantityUnit),
