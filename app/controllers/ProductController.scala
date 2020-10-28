@@ -2,9 +2,9 @@ package controllers
 
 import javax.inject._
 
-import dao.ProductDao
-import db.client.JdbcClientFactory
-import db.config.{JdbcConfig, JdbcConfigProvider}
+import db.postgresql.dao.ProductDao
+import db.postgresql.client.JdbcClientFactory
+import db.postgresql.config.{JdbcConfig, JdbcConfigProvider}
 import play.api._
 import play.api.mvc._
 
@@ -36,6 +36,6 @@ class ProductController @Inject()(cc: ControllerComponents) extends AbstractCont
     // fProduct.map(product=>Ok(views.html.home(product.get)))
 
     val product = Await.result(fProduct, timeout)
-    Ok(product.get)
+    Ok(product.get.toString)
   }
 }
