@@ -6,9 +6,9 @@ import slick.lifted.ProvenShape
 
 trait OrderItemTable {
 
-  class OrderItemsTable(tag: Tag) extends Table[OrderItem](tag, "order_item") {
+  class OrderItemTable(tag: Tag) extends Table[OrderItem](tag, "order_item") {
 
-    def id = column[Long]("id")
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("name")
 
@@ -38,15 +38,15 @@ trait OrderItemTable {
       createdAt,
       updatedAt).shaped <> ( {
       case (id, name, quantity, price, productId, orderId, createdAt, updatedAt) =>
-        OrderItem(id, name, Quantity.tupled.apply(quantity), Price.tupled.apply(price), productId, orderId, createdAt, updatedAt)
+        OrderItem(Option(id), name, Quantity.tupled.apply(quantity), Price.tupled.apply(price), productId, orderId, createdAt, updatedAt)
     }, { orderItem: OrderItem =>
       Some(
-        orderItem.id, orderItem.name, Quantity.unapply(orderItem.itemQuantity).get, Price.unapply(orderItem.itemPrice).get,
+        orderItem.id.getOrElse(0), orderItem.name, Quantity.unapply(orderItem.itemQuantity).get, Price.unapply(orderItem.itemPrice).get,
         orderItem.productId, orderItem.orderId, orderItem.createdAt, orderItem.updatedAt
       )
     })
   }
 
-  protected val orderItems = TableQuery[OrderItem]
+  protected val orderItems = TableQuery[OrderItemTable]
 
 }

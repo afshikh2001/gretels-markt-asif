@@ -8,7 +8,7 @@ trait ProductTable {
 
   class ProductTable(tag: Tag) extends Table[Product](tag, "product") {
 
-    def id = column[Long]("id")
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("name")
 
@@ -44,16 +44,16 @@ trait ProductTable {
       createdAt,
       updatedAt).shaped <> ( {
       case (id, name, productType, quantity, price, angebot, gesmeck, media, createdAt, updatedAt) =>
-        Product(id, name, productType, Quantity.tupled.apply(quantity), Price.tupled.apply(price), angebot, gesmeck, media, createdAt, updatedAt)
+        Product(Option(id), name, productType, Quantity.tupled.apply(quantity), Price.tupled.apply(price), angebot, gesmeck, media, createdAt, updatedAt)
     }, { product: Product =>
       Some(
-        product.id, product.name, product.productType, Quantity.unapply(product.quantity).get, Price.unapply(product.price).get,
+        product.id.getOrElse(0), product.name, product.productType, Quantity.unapply(product.quantity).get, Price.unapply(product.price).get,
         product.angebot, product.gesmeck, product.media, product.createdAt, product.updatedAt
       )
     })
   }
 
-  protected val products = TableQuery[Product]
+  protected val products = TableQuery[ProductTable]
 
 }
 

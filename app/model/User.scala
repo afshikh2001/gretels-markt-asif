@@ -1,6 +1,6 @@
 package model
 
-case class User(id: Long,
+case class User(id: Option[Long],
                 firstName: String,
                 lastName: String,
                 type_ : String,

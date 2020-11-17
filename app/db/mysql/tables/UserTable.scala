@@ -7,7 +7,7 @@ trait UserTable {
 
   class UserTable(tag: Tag) extends Table[User](tag, "user") {
 
-    def id = column[Long]("id")
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
     def firstName = column[String]("firstName")
 
@@ -35,7 +35,7 @@ trait UserTable {
 
 
     def * =
-      (id,
+      (id.?,
         firstName,
         lastName,
         type_,
@@ -50,6 +50,6 @@ trait UserTable {
         updatedAt) <> ((User.apply _).tupled, User.unapply)
   }
 
-  protected val users = TableQuery[User]
+  protected val users = TableQuery[UserTable]
 
 }

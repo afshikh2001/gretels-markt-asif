@@ -1,6 +1,6 @@
 package model
 
-case class Product(id: Long,
+case class Product(id: Option[Long],
                    name: String,
                    productType: String,
                    quantity: Quantity,
@@ -11,6 +11,3 @@ case class Product(id: Long,
                    createdAt: Long,
                    updatedAt: Long
                   )
-object Product {
-
-}

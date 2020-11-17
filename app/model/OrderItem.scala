@@ -1,6 +1,6 @@
 package model
 
-case class OrderItem(id: Long,
+case class OrderItem(id: Option[Long],
                      name: String,
                      itemQuantity: Quantity,
                      itemPrice: Price,
