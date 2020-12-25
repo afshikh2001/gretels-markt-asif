@@ -34,6 +34,6 @@ trait OrderTable {
 
   }
 
-  protected val orders = TableQuery[OrderTable]
+   val orders = TableQuery[OrderTable]
 
 }

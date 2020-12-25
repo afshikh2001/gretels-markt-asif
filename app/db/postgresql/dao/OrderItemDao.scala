@@ -95,12 +95,12 @@ object OrderItemDao {
     updatedAtField)
 
    val orderItemMapper = (rs: WrappedResultSet) => OrderItem(
-    id = rs.long(idField),
+    id = rs.longOpt(idField),
     name = rs.string(nameField),
     itemQuantity = quantityMapper(rs),
     itemPrice = priceMapper(rs),
     productId = rs.long(productIdField),
-    orderId = rs.long(orderIdField),
+    orderId = rs.longOpt(orderIdField),
     createdAt = rs.long(createdAtField),
     updatedAt = rs.long(updatedAtField)
   )

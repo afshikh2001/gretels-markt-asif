@@ -26,16 +26,7 @@ class ProductController @Inject()(cc: ControllerComponents) extends AbstractCont
     * a path of `/`.
     */
   def home() = Action { implicit request: Request[AnyContent] =>
-    val timeout = 10 seconds
-    val config = JdbcConfigProvider.config
-    println("CONFIG")
-    println(config.toString)
-    val client = JdbcClientFactory.createClient(config)
-    val productDao = new ProductDao(client)
-    val fProduct = productDao.getProduct(1)
-    // fProduct.map(product=>Ok(views.html.home(product.get)))
 
-    val product = Await.result(fProduct, timeout)
-    Ok(product.get.toString)
+    ???
   }
 }

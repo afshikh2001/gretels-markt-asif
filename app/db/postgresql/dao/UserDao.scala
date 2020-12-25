@@ -102,7 +102,7 @@ object UserDao {
   )
 
   private val userMapper = (rs: WrappedResultSet) => User(
-    id = rs.long(idField),
+    id = rs.longOpt(idField),
     firstName = rs.string(vorNameField),
     lastName = rs.string(nachNameField),
     type_ = rs.string(userTypeField),

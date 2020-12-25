@@ -1,15 +1,16 @@
 package services
 
-import db.postgresql.dao.OrderDao
+import db.mysql.repositories.OrderRepository
 import javax.inject.Inject
 import model.{Order, OrderItem, User}
 
 import scala.concurrent.Future
 
-class OrderService @Inject()(orderDao: OrderDao) {
+class OrderService @Inject()(orderRepository: OrderRepository) {
 
   def createOrder(user: User, orderItems: List[OrderItem]): Future[Order] = {
-
+    val customerId = user.id
+    val maybeOrder = user.id.map(id => Order(id, orderItems))
 
     ???
   }

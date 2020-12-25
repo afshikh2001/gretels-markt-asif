@@ -53,7 +53,7 @@ trait ProductTable {
     })
   }
 
-  protected val products = TableQuery[ProductTable]
+   val products = TableQuery[ProductTable]
 
 }
 

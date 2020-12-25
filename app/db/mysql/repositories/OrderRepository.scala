@@ -10,7 +10,7 @@ class OrderRepository(databaseService: DatabaseService) extends OrderTable {
   import databaseService._
   import databaseService.driver.api._
 
-  def filterQuery(id: Long): Query[OrderTable, Order, Seq] =
+  def filterQuery(id: Long) =
     orders.filter(_.id === id)
 
   def getAll()(implicit ec: ExecutionContext): Future[Seq[Order]] = {

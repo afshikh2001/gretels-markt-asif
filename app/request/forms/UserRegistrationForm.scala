@@ -1,7 +1,7 @@
-package request
+package request.forms
 
-import play.api.data._
 import play.api.data.Forms._
+import play.api.data._
 
 case class UserRegistrationForm(vorName: String,
                                 nachName: String,

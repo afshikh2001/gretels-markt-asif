@@ -11,7 +11,7 @@ class UserRepository (databaseService: DatabaseService) extends UserTable {
   import databaseService._
   import databaseService.driver.api._
 
-  def filterQuery(id: Long): Query[UserTable, User, Seq] =
+  def filterQuery(id: Long) =
     users.filter(_.id === id)
 
   def getAll()(implicit ec: ExecutionContext): Future[Seq[User]] = {

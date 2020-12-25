@@ -50,6 +50,6 @@ trait UserTable {
         updatedAt) <> ((User.apply _).tupled, User.unapply)
   }
 
-  protected val users = TableQuery[UserTable]
+   val users = TableQuery[UserTable]
 
 }

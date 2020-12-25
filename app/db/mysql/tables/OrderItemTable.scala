@@ -38,15 +38,16 @@ trait OrderItemTable {
       createdAt,
       updatedAt).shaped <> ( {
       case (id, name, quantity, price, productId, orderId, createdAt, updatedAt) =>
-        OrderItem(Option(id), name, Quantity.tupled.apply(quantity), Price.tupled.apply(price), productId, orderId, createdAt, updatedAt)
+        OrderItem(Option(id), name, Quantity.tupled.apply(quantity), Price.tupled.apply(price), productId, Option(orderId), createdAt, updatedAt)
     }, { orderItem: OrderItem =>
       Some(
         orderItem.id.getOrElse(0), orderItem.name, Quantity.unapply(orderItem.itemQuantity).get, Price.unapply(orderItem.itemPrice).get,
-        orderItem.productId, orderItem.orderId, orderItem.createdAt, orderItem.updatedAt
+        orderItem.productId, orderItem.orderId.getOrElse(0), orderItem.createdAt, orderItem.updatedAt
       )
     })
   }
 
-  protected val orderItems = TableQuery[OrderItemTable]
+
+  val orderItems = TableQuery[OrderItemTable]
 
 }

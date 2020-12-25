@@ -10,7 +10,7 @@ class ProductRepository(databaseService: DatabaseService) extends ProductTable {
   import databaseService._
   import databaseService.driver.api._
 
-  def filterQuery(id: Long): Query[ProductTable, Product, Seq] =
+  def filterQuery(id: Long) =
     products.filter(_.id === id)
 
   def getAll()(implicit ec: ExecutionContext): Future[Seq[Product]] = {

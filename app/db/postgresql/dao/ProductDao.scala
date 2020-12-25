@@ -99,7 +99,7 @@ object ProductDao {
     updatedAtField)
 
   private val productMapper = (rs: WrappedResultSet) => Product(
-    id = rs.long(idField),
+    id = rs.longOpt(idField),
     name = rs.string(nameField),
     productType = rs.string(productTypeField),
     quantity = quantityMapper(rs),

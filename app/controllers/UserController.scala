@@ -2,8 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, ControllerComponents, Request}
-import request.UserLoginForm.userLoginForm
-import request.UserRegistrationForm.userRegistrationForm
+import request.forms.{UserLoginForm, UserRegistrationForm}
 import services.UserService
 
 
@@ -12,19 +11,19 @@ class UserController @Inject()(cc: ControllerComponents, userService: UserServic
 
 
   def signin() = Action { implicit request =>
-    val loginData = userLoginForm.bindFromRequest.get
+    val loginData = UserLoginForm.userLoginForm.bindFromRequest.get
     userService.userSignin(email = loginData.email, password = loginData.password)
     Ok("")
   }
 
   def signup() = Action { implicit request =>
-    val customerData = userRegistrationForm.bindFromRequest.get
+    val customerData = UserRegistrationForm.userRegistrationForm.bindFromRequest.get
     println(customerData.toString)
     Ok("")
   }
 
   def create()= Action { implicit request =>
-    val customerData = userRegistrationForm.bindFromRequest.get
+    val customerData = UserRegistrationForm.userRegistrationForm.bindFromRequest.get
     println(customerData.toString)
     Ok("")
   }

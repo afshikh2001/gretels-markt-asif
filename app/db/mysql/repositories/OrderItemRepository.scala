@@ -10,7 +10,7 @@ class OrderItemRepository(databaseService: DatabaseService) extends OrderItemTab
   import databaseService._
   import databaseService.driver.api._
 
-  def filterQuery(id: Long): Query[OrderItemTable, OrderItem, Seq] =
+  def filterQuery(id: Long)=
     orderItems.filter(_.id === id)
 
   def getAll()(implicit ec: ExecutionContext): Future[Seq[OrderItem]] = {
@@ -31,4 +31,3 @@ class OrderItemRepository(databaseService: DatabaseService) extends OrderItemTab
   def delete(id: Long)(implicit ec: ExecutionContext): Future[Int] =
     db.run(filterQuery(id).delete)
 }
-

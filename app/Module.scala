@@ -1,7 +1,4 @@
 import com.google.inject.AbstractModule
-import com.google.inject.AbstractModule
-import com.google.inject.name.Names
-import com.typesafe.config.Config
 import db.mysql.MySQLDatabaseService
 import play.api.Configuration
 import play.api.Environment
@@ -10,7 +7,7 @@ import play.api.Environment
 
 class Module extends AbstractModule {
 
-  override def configure(environment: Environment, configuration: Configuration) = {
+   def configure(environment: Environment, configuration: Configuration) = {
     val config = configuration.underlying.getConfig("")
     val mySqlDatabaseService = new MySQLDatabaseService(config)
 
@@ -22,4 +19,6 @@ class Module extends AbstractModule {
 
 
   }
+
+  override def configure(): Unit = ???
 }
