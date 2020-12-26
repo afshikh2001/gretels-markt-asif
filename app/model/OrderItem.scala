@@ -4,20 +4,33 @@ case class OrderItem(id: Option[Long],
                      name: String,
                      itemQuantity: Quantity,
                      itemPrice: Price,
-                     productId: Long,
-                     orderId: Option[Long],
+                     productId:Long,
+                     orderId: Long,
+                     payment: Boolean,
                      createdAt: Long,
                      updatedAt: Long
                     )
 
 object OrderItem {
 
-  def apply(product: Product, itemQuantity: Quantity, itemPrice: Price): OrderItem = {
-    val now = System.currentTimeMillis();
-    new OrderItem(None, product.name, itemQuantity, itemPrice, product.id,None, now, now)
+  def apply(productId: Long,
+            productName:String,
+            itemQuantity: Quantity,
+            itemPrice: Price,
+            orderId: Long): OrderItem = {
+    val now = System.currentTimeMillis()
+    new OrderItem(
+      id = None,
+      name = productName,
+      itemQuantity = itemQuantity,
+      itemPrice = itemPrice,
+      productId=productId,
+      orderId = orderId,
+      payment = false,
+      createdAt = now,
+      updatedAt = now
+    )
   }
-
-
 }
 
 

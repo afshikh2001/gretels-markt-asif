@@ -24,6 +24,8 @@ trait OrderItemTable {
 
     def orderId = column[Long]("order_id")
 
+    def payment = column[Boolean]("payment")
+
     def createdAt = column[Long]("created_at")
 
     def updatedAt = column[Long]("updated_at")
@@ -35,18 +37,18 @@ trait OrderItemTable {
       (price, priceUnit),
       productId,
       orderId,
+      payment,
       createdAt,
       updatedAt).shaped <> ( {
-      case (id, name, quantity, price, productId, orderId, createdAt, updatedAt) =>
-        OrderItem(Option(id), name, Quantity.tupled.apply(quantity), Price.tupled.apply(price), productId, Option(orderId), createdAt, updatedAt)
+      case (id, name, quantity, price, productId, orderId, payment, createdAt, updatedAt) =>
+        OrderItem(Option(id), name, Quantity.tupled.apply(quantity), Price.tupled.apply(price), productId, orderId, payment, createdAt, updatedAt)
     }, { orderItem: OrderItem =>
       Some(
         orderItem.id.getOrElse(0), orderItem.name, Quantity.unapply(orderItem.itemQuantity).get, Price.unapply(orderItem.itemPrice).get,
-        orderItem.productId, orderItem.orderId.getOrElse(0), orderItem.createdAt, orderItem.updatedAt
+        orderItem.productId, orderItem.orderId, orderItem.payment, orderItem.createdAt, orderItem.updatedAt
       )
     })
   }
-
 
   val orderItems = TableQuery[OrderItemTable]
 

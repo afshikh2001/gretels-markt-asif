@@ -8,7 +8,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
-class OrderItemDao(client: JdbcClient)  {
+class OrderItemDao(client: JdbcClient) {
 
   import OrderItemDao._
 
@@ -80,6 +80,7 @@ object OrderItemDao {
   private val priceUnitField = sqls"price_unit"
   private val productIdField = sqls"product_id"
   private val orderIdField = sqls"order_id"
+  private val paymentField = sqls"payment"
   private val createdAtField = sqls"created_at"
   private val updatedAtField = sqls"updated_at"
 
@@ -91,16 +92,18 @@ object OrderItemDao {
     priceUnitField,
     productIdField,
     orderIdField,
+    paymentField,
     createdAtField,
     updatedAtField)
 
-   val orderItemMapper = (rs: WrappedResultSet) => OrderItem(
+  val orderItemMapper = (rs: WrappedResultSet) => OrderItem(
     id = rs.longOpt(idField),
     name = rs.string(nameField),
     itemQuantity = quantityMapper(rs),
     itemPrice = priceMapper(rs),
     productId = rs.long(productIdField),
-    orderId = rs.longOpt(orderIdField),
+    orderId = rs.long(orderIdField),
+    payment = rs.boolean(paymentField),
     createdAt = rs.long(createdAtField),
     updatedAt = rs.long(updatedAtField)
   )
