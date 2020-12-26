@@ -8,6 +8,7 @@ CREATE TABLE order_item
   price_unit       VARCHAR(32)      NOT NULL,
   product_id       BIGSERIAL        NOT NULL,
   order_id         BIGSERIAL        NOT NULL,
+  payment          BOOLEAN          NOT NULL,
   created_at       BIGSERIAL        NOT NULL,
   updated_at       BIGSERIAL        NOT NULL,
 
