@@ -4,8 +4,6 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET         /                    controllers.ProductController.home
-+ nocsrf
 
 POST        /sigin               controllers.UserController.signin
 + nocsrf

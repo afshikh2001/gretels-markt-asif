@@ -3,16 +3,14 @@ package controllers
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, ControllerComponents, Request}
 import request.forms.{UserLoginForm, UserRegistrationForm}
-import services.UserService
 
 
 @Singleton
-class UserController @Inject()(cc: ControllerComponents, userService: UserService) extends AbstractController(cc) {
+class UserController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
 
   def signin() = Action { implicit request =>
     val loginData = UserLoginForm.userLoginForm.bindFromRequest.get
-    userService.userSignin(email = loginData.email, password = loginData.password)
     Ok("")
   }
 
