@@ -12,18 +12,9 @@ libraryDependencies ++= Seq(
   ws,
   "com.typesafe.play" %% "play-slick" % "4.0.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "4.0.0",
-  "com.h2database" % "h2" % "1.4.197",
   specs2 % Test
 )
 
-libraryDependencies ++= Seq(
-  "org.scalikejdbc" %% "scalikejdbc"        % "3.1.+",
-  "com.h2database"  %  "h2"                 % "1.4.+",
-  "ch.qos.logback"  %  "logback-classic"    % "1.2.+"
-)
-
-libraryDependencies += "mysql" % "mysql-connector-java" % "6.0.6"
-libraryDependencies += "postgresql" % "postgresql" % "9.1-901.jdbc4"
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 
 

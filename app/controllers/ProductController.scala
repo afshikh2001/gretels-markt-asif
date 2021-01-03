@@ -1,14 +1,9 @@
 package controllers
 
 import javax.inject._
-import db.postgresql.dao.ProductDao
-import db.postgresql.client.JdbcClientFactory
-import db.postgresql.config.{JdbcConfig, JdbcConfigProvider}
-import play.api._
 import play.api.mvc._
 
 import scala.concurrent.{Await, ExecutionContext}
-import scala.concurrent.duration._
 
 /**
   * This controller creates an `Action` to handle HTTP requests to the
