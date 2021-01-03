@@ -1,12 +1,13 @@
 package db.mysql.repositories
 
+import javax.inject.Inject
 import db.mysql.DatabaseService
 import db.mysql.tables.UserTable
 import model.User
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UserRepository (databaseService: DatabaseService) extends UserTable {
+class UserRepository @Inject()(databaseService: DatabaseService) extends UserTable {
 
   import databaseService._
   import databaseService.driver.api._

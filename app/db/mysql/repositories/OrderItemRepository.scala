@@ -3,9 +3,11 @@ package db.mysql.repositories
 import db.mysql.DatabaseService
 import db.mysql.tables.OrderItemTable
 import model.OrderItem
+
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class OrderItemRepository(databaseService: DatabaseService) extends OrderItemTable {
+class OrderItemRepository @Inject()(databaseService: DatabaseService) extends OrderItemTable {
 
   import databaseService._
   import databaseService.driver.api._

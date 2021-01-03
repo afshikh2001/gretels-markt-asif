@@ -1,11 +1,13 @@
 package db.mysql.repositories
 
+import javax.inject.Inject
 import db.mysql.DatabaseService
 import db.mysql.tables.OrderTable
 import model.Order
+
 import scala.concurrent.{ExecutionContext, Future}
 
-class OrderRepository(databaseService: DatabaseService) extends OrderTable {
+class OrderRepository @Inject()(databaseService: DatabaseService) extends OrderTable {
 
   import databaseService._
   import databaseService.driver.api._

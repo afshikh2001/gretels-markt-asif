@@ -1,11 +1,13 @@
 package db.mysql.repositories
 
+import javax.inject.Inject
 import db.mysql.DatabaseService
 import db.mysql.tables.ProductTable
 import model.Product
+
 import scala.concurrent.{ExecutionContext, Future}
 
-class ProductRepository(databaseService: DatabaseService) extends ProductTable {
+class ProductRepository@Inject()(databaseService: DatabaseService) extends ProductTable {
 
   import databaseService._
   import databaseService.driver.api._
