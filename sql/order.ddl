@@ -1,13 +1,10 @@
-CREATE TABLE order
+CREATE TABLE orders
 (
-  id            BIGSERIAL        NOT NULL CONSTRAINT order_pkey  PRIMARY KEY,
-  customer_id   BIGSERIAL        NOT NULL,
-  price         DOUBLE PRECISION NOT NULL,
-  price_unit    VARCHAR(32)      NOT NULL,
-  created_at    BIGSERIAL        NOT NULL,
-  updated_at    BIGSERIAL        NOT NULL,
-
-  FOREIGN KEY (customer_id) REFERENCES order(id)
+  id            int           NOT NULL AUTO_INCREMENT,
+  customer_id   BIGINT        NOT NULL,
+  price         DOUBLE PRECISION  NOT NULL,
+  price_unit    VARCHAR(255)      NOT NULL,
+  created_at    BIGINT            NOT NULL,
+  updated_at    BIGINT            NOT NULL,
+primary key (id)
 );
-
-CREATE UNIQUE INDEX order_id_uindex ON order (id);

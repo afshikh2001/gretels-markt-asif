@@ -4,9 +4,11 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.{AbstractController, ControllerComponents, Request}
 import request.forms.{UserLoginForm, UserRegistrationForm}
 
+import scala.concurrent.ExecutionContext
+
 
 @Singleton
-class UserController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class UserController @Inject()(cc: ControllerComponents) (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
 
   def signin() = Action { implicit request =>

@@ -3,7 +3,9 @@ package controllers
 import javax.inject.Inject
 import play.api.mvc.{AbstractController, ControllerComponents}
 
-class ManagementController  @Inject()(cc: ControllerComponents) extends AbstractController(cc){
+import scala.concurrent.ExecutionContext
+
+class ManagementController  @Inject()(cc: ControllerComponents) (implicit ec: ExecutionContext) extends AbstractController(cc){
 
   def deleteUser()=Action{implicit request=>
     Ok("")

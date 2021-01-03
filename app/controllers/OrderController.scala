@@ -7,8 +7,11 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 import request.OrderRequest
 import services.OrderService
 
+import scala.concurrent.ExecutionContext
+import scala.concurrent.ExecutionContext.Implicits.global
+
 @Singleton
-class OrderController @Inject()(cc: ControllerComponents, orderService: OrderService) extends AbstractController(cc) {
+class OrderController @Inject()(cc: ControllerComponents, orderService: OrderService) (implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def createOrder() = Action(parse.json) { implicit request =>
     val placeResult = request.body.validate[OrderRequest]

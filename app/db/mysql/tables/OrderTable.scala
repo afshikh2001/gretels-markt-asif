@@ -6,7 +6,7 @@ import slick.lifted.ProvenShape
 
 trait OrderTable {
 
-  class OrderTable(tag: Tag) extends Table[Order](tag, "order") {
+  class OrderTable(tag: Tag) extends Table[Order](tag, "orders") {
 
     def id = column[Long]("id")
 
